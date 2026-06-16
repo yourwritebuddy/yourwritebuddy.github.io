@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WriteBuddy - Keyword Density Checker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        p.subtitle {
+            color: #7f8c8d;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 16px;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+        textarea:focus {
+            border-color: #0070f3;
+            outline: none;
+        }
+        .density-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .density-table th, .density-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .density-table th {
+            background-color: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #7f8c8d;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover {
+            color: #333;
+        }
+        .no-data {
+            color: #94a3b8;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Keyword Density Checker</h1>
+    <p class="subtitle">Analyze your text to optimize word frequencies and detect overused terms.</p>
+    
+    <textarea id="textInput" placeholder="Type or paste your content here to audit keyword frequency..."></textarea>
+
+    <h2>Top Keywords</h2>
+    <table class="density-table">
+        <thead>
+            <tr>
+                <th>Keyword</th>
+                <th>Count</th>
+                <th>Density Percentage</th>
+            </tr>
+        </thead>
+        <tbody id="densityBody">
+            <tr>
+                <td colspan="3" class="no-data">Your keyword analytics breakdown will appear here as you type...</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="index.html" class="back-link">← Back to Dashboard</a>
+</div>
+
+<script>
+    const textInput = document.getElementById('textInput');
+    const densityBody = document.getElementById('densityBody');
+
+    textInput.addEventListener('input', () => {
+        const text = textInput.value.trim();
+        const words = text.split(/\s+/).filter(w => w.length > 0);
+
+        if (words.length === 0) {
+            densityBody.innerHTML = '<tr><td colspan="3" class="no-data">Your keyword analytics breakdown will appear here as you type...</td></tr>';
+            return;
+        }
+
+        // Standard filler words to filter out
+        const stopWords = ['the', 'a', 'to', 'and', 'of', 'in', 'is', 'it', 'you', 'that', 'this', 'on', 'for', 'with', 'as', 'are', 'was', 'at', 'by', 'an', 'be', 'from'];
+        const freqMap = {};
+
+        words.forEach(w => {
+            let word = w.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"");
+            if (word.length > 2 && !stopWords.includes(word)) {
+                freqMap[word] = (freqMap[word] || 0) + 1;
+            }
+        });
+
+        const sortedKeywords = Object.entries(freqMap).sort((a, b) => b[1] - a[1]).slice(0, 8);
+
+        if (sortedKeywords.length === 0) {
+            densityBody.innerHTML = '<tr><td colspan="3" class="no-data">Keep typing to generate unique keyword patterns...</td></tr>';
+            return;
+        }
+
+        densityBody.innerHTML = sortedKeywords.map(([word, count]) => {
+            let percentage = ((count / words.length) * 100).toFixed(1);
+            return `
+                <tr>
+                    <td style="text-transform: capitalize; font-weight: 500;">${word}</td>
+                    <td>${count}</td>
+                    <td style="color: #0070f3; font-weight: bold;">${percentage}%</td>
+                </tr>
+            `;
+        }).join('');
+    });
+</script>
+
+</body>
+</html>
