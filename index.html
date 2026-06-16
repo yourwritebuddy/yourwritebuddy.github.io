@@ -74,6 +74,13 @@
                     <h4>Core Layout Metrics</h4>
                     <div class="stat-row"><span>Words</span><span id="mWords">0</span></div>
                     <div class="stat-row"><span>Characters</span><span id="mChars">0</span></div>
+                    <div class="stat-row"><span>Paragraphs</span><span id="mParas">0</span></div>
+                    <div class="stat-row"><span>Lines</span><span id="mLines">0</span></div>
+                </div>
+                <div class="analytics-card">
+                    <h4>Pacing Parameters</h4>
+                    <div class="stat-row"><span>Reading Time</span><span id="mRead">0 min</span></div>
+                    <div class="stat-row"><span>Speech Time</span><span id="mSpeak">0 min</span></div>
                 </div>
             </div>
         </div>
@@ -89,18 +96,26 @@
 
     <script>
         const masterInput = document.getElementById('masterInput');
-        const mWords = document.getElementById('mWords');
-        const mChars = document.getElementById('mChars');
+        const mWords = document.getElementById('mWords'), mChars = document.getElementById('mChars');
+        const mParas = document.getElementById('mParas'), mLines = document.getElementById('mLines');
+        const mRead = document.getElementById('mRead'), mSpeak = document.getElementById('mSpeak');
         const masterGrammar = document.getElementById('masterGrammar');
 
         masterInput.addEventListener('input', () => {
             const val = masterInput.value;
-            
-            // Update metrics
-            mChars.textContent = val.length;
-            mWords.textContent = val.trim().split(/\s+/).filter(w => w.length > 0).length;
+            const wordsArray = val.trim().split(/\s+/).filter(w => w.length > 0);
 
-            // Improved Grammar Diagnostic Logic
+            // Update Metrics
+            mChars.textContent = val.length;
+            mWords.textContent = wordsArray.length;
+            mParas.textContent = val.trim() === "" ? 0 : val.split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
+            mLines.textContent = val.trim() === "" ? 0 : val.split(/\r\n|\r|\n/).length;
+
+            // Update Pacing
+            mRead.textContent = wordsArray.length === 0 ? "0 min" : `${Math.ceil(wordsArray.length / 225)} min`;
+            mSpeak.textContent = wordsArray.length === 0 ? "0 min" : `${Math.ceil(wordsArray.length / 130)} min`;
+
+            // Grammar Diagnostic
             if (val.trim().length === 0) {
                 masterGrammar.textContent = "Awaiting text...";
                 masterGrammar.style.color = "#92400e";
@@ -115,10 +130,10 @@
 
         function clearMasterText() { 
             masterInput.value = ''; 
+            mWords.textContent = mChars.textContent = mParas.textContent = mLines.textContent = 0;
+            mRead.textContent = mSpeak.textContent = "0 min";
             masterGrammar.textContent = "Awaiting text...";
             masterGrammar.style.color = "#92400e";
-            mWords.textContent = 0; 
-            mChars.textContent = 0; 
         }
     </script>
 </body>
