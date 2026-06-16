@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WriteBuddy - Line Counter</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; max-width: 800px; margin: 40px auto; padding: 20px; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; margin-bottom: 5px; }
+        p.subtitle { color: #7f8c8d; margin-top: 0; margin-bottom: 20px; }
+        textarea { width: 100%; height: 200px; padding: 12px; box-sizing: border-box; border: 2px solid #bdc3c7; border-radius: 4px; font-size: 16px; resize: vertical; }
+        textarea:focus { border-color: #0070f3; outline: none; }
+        .stat-box { background: #ecf0f1; padding: 20px; text-align: center; border-radius: 6px; margin-top: 20px; }
+        .stat-number { font-size: 32px; font-weight: bold; color: #0070f3; }
+        .stat-label { font-size: 14px; color: #7f8c8d; text-transform: uppercase; letter-spacing: 1px; }
+        .back-link { display: inline-block; margin-top: 25px; color: #7f8c8d; text-decoration: none; font-size: 14px; }
+        .back-link:hover { color: #333; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Line Counter</h1>
+    <p class="subtitle">Enter text to view the continuous total of structural line breaks.</p>
+    <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
+    <div class="stat-box">
+        <div id="lineCount" class="stat-number">0</div>
+        <div class="stat-label">Total Lines</div>
+    </div>
+    <a href="index.html" class="back-link">← Back to Dashboard</a>
+</div>
+<script>
+    const textInput = document.getElementById('textInput');
+    const lineCount = document.getElementById('lineCount');
+    textInput.addEventListener('input', () => {
+        const text = textInput.value;
+        const lines = text.split(/\r\n|\r|\n/);
+        lineCount.textContent = text.length === 0 ? 0 : lines.length;
+    });
+</script>
+</body>
+</html>
