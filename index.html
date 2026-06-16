@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FreeWriteChecker - Free Online Writing Suite & Analytics</title>
-    <meta name="description" content="FreeWriteChecker is a lightning-fast, free online writing suite. Check word counts, character limits, reading time, and grammar for your drafts instantly.">
+    <meta name="description" content="FreeWriteChecker is the ultimate free online writing suite for students, writers, and SEO professionals. Instantly check word counts, character limits, grammar, and reading time to optimize your content effectively.">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,9 +13,22 @@
             margin: 0;
             padding: 0;
         }
+        nav {
+            text-align: center;
+            padding: 15px;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 10px;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #0070f3;
+            font-weight: 600;
+        }
         .hero {
             text-align: center;
-            padding: 50px 20px;
+            padding: 40px 20px;
             background: white;
             border-bottom: 1px solid #e2e8f0;
         }
@@ -29,7 +42,7 @@
         .hero p {
             font-size: 16px;
             color: #7f8c8d;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
             line-height: 1.6;
         }
@@ -76,7 +89,6 @@
             line-height: 1.5;
         }
         
-        /* Master Workspace Layout Style rules */
         .workspace-container {
             max-width: 1100px;
             margin: 0 auto 60px auto;
@@ -119,21 +131,23 @@
         .stat-row:last-child { border-bottom: none; }
         .stat-label { color: #64748b; }
         .stat-value { font-weight: bold; color: #0070f3; }
-        .density-list { list-style: none; padding: 0; margin: 0; }
-        .density-item { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; }
         .grammar-box { padding: 12px; background: #fffbeb; border: 1px solid #fde68a; color: #92400e; border-radius: 6px; font-size: 13px; }
     </style>
 </head>
 <body>
 
-    <!-- Heading Section -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+    </nav>
+
     <div class="hero">
         <h1>FreeWriteChecker</h1>
-        <p>Your free, lightning-fast writing suite. Check your text metrics, grammar, and pacing instantly in our master workspace.</p>
+        <p>The essential writing suite for students, content creators, and SEO professionals. Instantly analyze your text with our suite of tools, including word counts, readability metrics, and grammar checks—designed to help you write faster and smarter.</p>
     </div>
 
-    <!-- Section 1: Single Utility Jump Links -->
-    <h2 class="section-title">Isolate a Specific Tool</h2>
+    <h2 class="section-title">Explore the Tools</h2>
     <div class="tools-grid">
         <a href="word-counter.html" class="tool-card"><h3>Word Counter →</h3><p>Verify your word count for essays and professional copy.</p></a>
         <a href="character-counter.html" class="tool-card"><h3>Character Counter →</h3><p>Check lengths for social media and strict character limits.</p></a>
@@ -146,7 +160,6 @@
         <a href="grammar-checker.html" class="tool-card"><h3>Grammar Checker →</h3><p>Detect structural slips and improve your prose.</p></a>
     </div>
 
-    <!-- Section 2: Integrated Master Workspace Frame -->
     <h2 class="section-title">🎛️ Ultimate All-in-One Workspace</h2>
     <div class="workspace-container">
         <div class="workspace-panel">
@@ -181,7 +194,6 @@
     </div>
 
     <script>
-        // (JavaScript logic remains the same for performance)
         const masterInput = document.getElementById('masterInput');
         const mWords = document.getElementById('mWords'), mChars = document.getElementById('mChars'), mParas = document.getElementById('mParas'), mLines = document.getElementById('mLines'), mRead = document.getElementById('mRead'), mSpeak = document.getElementById('mSpeak'), masterGrammar = document.getElementById('masterGrammar');
         masterInput.addEventListener('input', runMasterPipeline);
