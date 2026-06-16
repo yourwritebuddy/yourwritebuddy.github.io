@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free online Word Counter by YourWriteBuddy. Count words, characters, sentences, paragraphs, and reading time instantly.">
+<meta name="keywords" content="word counter, character counter, sentence counter, reading time calculator, online writing tool">
+<meta name="author" content="YourWriteBuddy">
+<meta name="robots" content="index, follow">
+
+<title>Word Counter | YourWriteBuddy</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#222;
+    min-height:100vh;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+header h1{
+    font-size:2.5rem;
+    color:#1e3a8a;
+    margin-bottom:10px;
+}
+
+header p{
+    color:#555;
+}
+
+.tool-box{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    padding:25px;
+}
+
+textarea{
+    width:100%;
+    min-height:300px;
+    border:2px solid #e5e7eb;
+    border-radius:12px;
+    padding:15px;
+    font-size:16px;
+    resize:vertical;
+    outline:none;
+    transition:.3s;
+}
+
+textarea:focus{
+    border-color:#2563eb;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+    margin-top:25px;
+}
+
+.card{
+    background:#f8fafc;
+    padding:18px;
+    border-radius:12px;
+    text-align:center;
+    border:1px solid #e5e7eb;
+}
+
+.card h3{
+    font-size:14px;
+    color:#666;
+    margin-bottom:8px;
+}
+
+.card span{
+    font-size:1.8rem;
+    font-weight:bold;
+    color:#1e3a8a;
+}
+
+.buttons{
+    display:flex;
+    gap:12px;
+    margin-top:25px;
+    flex-wrap:wrap;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    padding:12px 24px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.copy-btn{
+    background:#2563eb;
+    color:white;
+}
+
+.copy-btn:hover{
+    background:#1d4ed8;
+}
+
+.clear-btn{
+    background:#ef4444;
+    color:white;
+}
+
+.clear-btn:hover{
+    background:#dc2626;
+}
+
+footer{
+    text-align:center;
+    margin-top:30px;
+    color:#666;
+    font-size:14px;
+}
+
+@media(max-width:768px){
+    header h1{
+        font-size:2rem;
+    }
+
+    .card span{
+        font-size:1.5rem;
+    }
+
+    button{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <h1>YourWriteBuddy Word Counter</h1>
+    <p>Count words, characters, sentences, paragraphs, and reading time instantly.</p>
+</header>
+
+<div class="tool-box">
+
+<textarea id="textInput" placeholder="Start typing or paste your text here..."></textarea>
+
+<div class="stats">
+
+    <div class="card">
+        <h3>Words</h3>
+        <span id="words">0</span>
+    </div>
+
+    <div class="card">
+        <h3>Characters</h3>
+        <span id="characters">0</span>
+    </div>
+
+    <div class="card">
+        <h3>Sentences</h3>
+        <span id="sentences">0</span>
+    </div>
+
+    <div class="card">
+        <h3>Paragraphs</h3>
+        <span id="paragraphs">0</span>
+    </div>
+
+    <div class="card">
+        <h3>Reading Time</h3>
+        <span id="readingTime">0 min</span>
+    </div>
+
+</div>
+
+<div class="buttons">
+    <button class="copy-btn" onclick="copyText()">Copy Text</button>
+    <button class="clear-btn" onclick="clearText()">Clear Text</button>
+</div>
+
+</div>
+
+<footer>
+    © 2026 YourWriteBuddy • Free Online Word Counter Tool
+</footer>
+
+</div>
+
+<script>
+const textInput = document.getElementById("textInput");
+
+textInput.addEventListener("input", updateCounts);
+
+function updateCounts() {
+
+    const text = textInput.value;
+
+    const words = text.trim().length > 0
+        ? text.trim().split(/\s+/).length
+        : 0;
+
+    const characters = text.length;
+
+    const sentences = text.trim().length > 0
+        ? text.split(/[.!?]+/).filter(sentence => sentence.trim().length > 0).length
+        : 0;
+
+    const paragraphs = text.trim().length > 0
+        ? text.split(/\n+/).filter(paragraph => paragraph.trim().length > 0).length
+        : 0;
+
+    const readingTime = Math.ceil(words / 200);
+
+    document.getElementById("words").textContent = words;
+    document.getElementById("characters").textContent = characters;
+    document.getElementById("sentences").textContent = sentences;
+    document.getElementById("paragraphs").textContent = paragraphs;
+    document.getElementById("readingTime").textContent =
+        readingTime > 0 ? readingTime + " min" : "0 min";
+}
+
+function copyText() {
+    navigator.clipboard.writeText(textInput.value);
+    alert("Text copied successfully!");
+}
+
+function clearText() {
+    textInput.value = "";
+    updateCounts();
+}
+
+updateCounts();
+</script>
+
+</body>
+</html>
