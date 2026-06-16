@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WriteBuddy - Free Writing & Editing Tools</title>
+    <title>WriteBuddy - Ultimate Writing & Text Analytics Dashboard</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,117 +14,339 @@
         }
         .hero {
             text-align: center;
-            padding: 80px 20px;
+            padding: 40px 20px;
             background: white;
             border-bottom: 1px solid #e2e8f0;
         }
         .hero h1 {
-            font-size: 48px;
+            font-size: 36px;
             color: #2c3e50;
-            margin-bottom: 15px;
+            margin: 0 0 10px 0;
             font-weight: 700;
         }
         .hero p {
-            font-size: 18px;
+            font-size: 16px;
             color: #7f8c8d;
             max-width: 600px;
-            margin: 0 auto 30px auto;
+            margin: 0 auto;
             line-height: 1.6;
         }
-        .cta-btn {
-            background-color: #0070f3;
-            color: white;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: background 0.2s;
-        }
-        .cta-btn:hover {
-            background-color: #0051b3;
-        }
-        .section-title {
-            text-align: center;
-            margin: 50px 0 30px 0;
-            font-size: 28px;
-            color: #2c3e50;
-        }
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            max-width: 1000px;
-            margin: 0 auto 60px auto;
+        .workspace {
+            max-width: 1100px;
+            margin: 30px auto;
             padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
         }
-        .tool-card {
+        @media(min-width: 768px) {
+            .workspace {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+        .input-area {
             background: white;
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.2s, box-shadow 0.2s;
             border: 1px solid #e2e8f0;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 15px;
+            box-sizing: border-box;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            font-size: 16px;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+        textarea:focus {
+            border-color: #0070f3;
+            outline: none;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background-color: #0070f3;
+            color: white;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background-color: #0051b3;
+        }
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+        }
+        .sidebar {
             display: flex;
             flex-direction: column;
-            cursor: pointer; /* Force the mouse cursor to look like a pointer */
+            gap: 20px;
         }
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-            border-color: #0070f3;
+        .analytics-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
         }
-        .tool-card h3 {
-            margin: 0 0 10px 0;
-            color: #0070f3; /* Makes the title blue so you know it's clickable */
-            font-size: 20px;
+        .analytics-card h3 {
+            margin: 0 0 15px 0;
+            color: #2c3e50;
+            font-size: 18px;
+            border-bottom: 2px solid #f4f7f6;
+            padding-bottom: 8px;
         }
-        .tool-card p {
-            margin: 0;
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f4f7f6;
+        }
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+        .stat-label {
             color: #7f8c8d;
+            font-weight: 500;
+        }
+        .stat-value {
+            font-weight: bold;
+            color: #0070f3;
+        }
+        .density-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .density-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
             font-size: 14px;
-            line-height: 1.5;
+        }
+        .grammar-box {
+            padding: 12px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            border-radius: 6px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Hero Section -->
     <div class="hero">
         <h1>Write Faster, Cleaner and Smarter</h1>
-        <p>Free writing tools for students, bloggers, writers, and professionals. Count words, check grammar, estimate reading time, and improve your writing.</p>
-        <a href="#tools" class="cta-btn">Explore Tools</a>
+        <p>Your comprehensive text analytics workspace. Paste your content below to analyze everything instantly.</p>
     </div>
 
-    <!-- Main Content Grid -->
-    <div id="tools">
-        <h2 class="section-title">Popular Writing Tools</h2>
+    <div class="workspace">
         
-        <div class="tools-grid">
-            <!-- Word Counter Card -->
-            <a href="./word-counter.html" class="tool-card">
-                <h3>Word Counter</h3>
-                <p>Track characters and words for essays, articles, and social media instantly as you type.</p>
-            </a>
+        <div class="input-area">
+            <textarea id="textInput" placeholder="Start typing or paste your text content here..."></textarea>
+            
+            <div class="button-group">
+                <button class="btn" onclick="convertCase('upper')">UPPERCASE</button>
+                <button class="btn" onclick="convertCase('lower')">lowercase</button>
+                <button class="btn" onclick="convertCase('title')">Title Case</button>
+                <button class="btn btn-secondary" onclick="clearText()">Clear Text</button>
+            </div>
 
-            <!-- Case Converter Card -->
-            <a href="./case-converter.html" class="tool-card">
-                <h3>Case Converter</h3>
-                <p>Quickly change text to UPPERCASE, lowercase, or Title Case at the click of a button.</p>
-            </a>
+            <div class="analytics-card" style="margin-top: 20px; box-shadow: none; padding: 0;">
+                <h3>Grammar Checker</h3>
+                <div id="grammarStatus" class="grammar-box">
+                    Ready to scan. Type text above to verify basic patterns.
+                </div>
+            </div>
+        </div>
 
-            <!-- Reading Time Calculator Card -->
-            <a href="#" class="tool-card" onclick="alert('Coming soon!')">
-                <h3>Reading Time Calculator</h3>
-                <p>Estimate how long your content takes to read based on average speech and reading speeds.</p>
-            </a>
+        <div class="sidebar">
+            
+            <div class="analytics-card">
+                <h3>Text Counters</h3>
+                <div class="stat-row">
+                    <span class="stat-label">Word Counter</span>
+                    <span id="wordCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Character Counter</span>
+                    <span id="charCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Paragraph Counter</span>
+                    <span id="paragraphCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Line Counter</span>
+                    <span id="lineCount" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <h3>Time Estimators</h3>
+                <div class="stat-row">
+                    <span class="stat-label">Reading Time Calculator</span>
+                    <span id="readingTime" class="stat-value">0 min</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Speech Time Calculator</span>
+                    <span id="speakingTime" class="stat-value">0 min</span>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <h3>Keyword Density Checker</h3>
+                <ul id="keywordList" class="density-list">
+                    <li class="density-item" style="color: #94a3b8;">Type text to view top keywords...</li>
+                </ul>
+            </div>
+
         </div>
     </div>
 
+    <script>
+        const textInput = document.getElementById('textInput');
+        
+        // Target elements
+        const wordCount = document.getElementById('wordCount');
+        const charCount = document.getElementById('charCount');
+        const paragraphCount = document.getElementById('paragraphCount');
+        const lineCount = document.getElementById('lineCount');
+        const readingTime = document.getElementById('readingTime');
+        const speakingTime = document.getElementById('speakingTime');
+        const keywordList = document.getElementById('keywordList');
+        const grammarStatus = document.getElementById('grammarStatus');
+
+        textInput.addEventListener('input', runAnalytics);
+
+        function runAnalytics() {
+            const text = textInput.value;
+
+            // 1. Character Counter
+            charCount.textContent = text.length;
+
+            // Cleaned text arrays
+            const cleanText = text.trim();
+            const wordsArray = cleanText.split(/\s+/).filter(w => w.length > 0);
+
+            // 2. Word Counter
+            wordCount.textContent = wordsArray.length;
+
+            // 3. Paragraph Counter
+            const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+            paragraphCount.textContent = text.length === 0 ? 0 : paragraphs.length;
+
+            // 4. Line Counter
+            const lines = text.split(/\r\n|\r|\n/);
+            lineCount.textContent = text.length === 0 ? 0 : lines.length;
+
+            // 5. Reading Time Calculator (avg 225 wpm)
+            const readMin = Math.ceil(wordsArray.length / 225);
+            readingTime.textContent = wordsArray.length === 0 ? "0 min" : `${readMin} min${readMin > 1 ? 's' : ''}`;
+
+            // 6. Speech Time Calculator (avg 130 wpm)
+            const speakMin = Math.ceil(wordsArray.length / 130);
+            speakingTime.textContent = wordsArray.length === 0 ? "0 min" : `${speakMin} min${speakMin > 1 ? 's' : ''}`;
+
+            // 7. Keyword Density Checker
+            calculateKeywords(wordsArray);
+
+            // 8. Basic Grammar Pattern Check
+            checkBasicGrammar(text);
+        }
+
+        // Case Converter Functions
+        function convertCase(mode) {
+            let currentText = textInput.value;
+            if (mode === 'upper') {
+                textInput.value = currentText.toUpperCase();
+            } else if (mode === 'lower') {
+                textInput.value = currentText.toLowerCase();
+            } else if (mode === 'title') {
+                textInput.value = currentText.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+            }
+            runAnalytics();
+        }
+
+        function clearText() {
+            textInput.value = '';
+            runAnalytics();
+        }
+
+        function calculateKeywords(words) {
+            if (words.length === 0) {
+                keywordList.innerHTML = '<li class="density-item" style="color: #94a3b8;">Type text to view top keywords...</li>';
+                return;
+            }
+            
+            const stopWords = ['the', 'a', 'to', 'and', 'of', 'in', 'is', 'it', 'you', 'that', 'this', 'on', 'for', 'with', 'as', 'are'];
+            const freqMap = {};
+            
+            words.forEach(w => {
+                let word = w.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+                if (word.length > 2 && !stopWords.includes(word)) {
+                    freqMap[word] = (freqMap[word] || 0) + 1;
+                }
+            });
+
+            const sorted = Object.entries(freqMap).sort((a, b) => b[1] - a[1]).slice(0, 4);
+
+            if (sorted.length === 0) {
+                keywordList.innerHTML = '<li class="density-item" style="color: #94a3b8;">Keep typing to identify core keywords...</li>';
+                return;
+            }
+
+            keywordList.innerHTML = sorted.map(([word, count]) => {
+                let percentage = ((count / words.length) * 100).toFixed(1);
+                return `<li class="density-item"><span style="text-transform: capitalize;">${word}</span> <span>${count} times (${percentage}%)</span></li>`;
+            }).join('');
+        }
+
+        function checkBasicGrammar(text) {
+            if (text.trim().length === 0) {
+                grammarStatus.className = "grammar-box";
+                grammarStatus.style.background = "#f0fdf4";
+                grammarStatus.style.color = "#166534";
+                grammarStatus.style.borderColor = "#bbf7d0";
+                grammarStatus.textContent = "Ready to scan. Type text above to verify basic patterns.";
+                return;
+            }
+
+            // Simple client-side pattern checks for instant writing feedback
+            if (/\b(i|they|we|you)\s+has\b/i.test(text) || /\b(he|she|it)\s+have\b/i.test(text)) {
+                grammarStatus.textContent = "Potential Subject-Verb Agreement error found (e.g., 'he have' vs 'he has').";
+                grammarStatus.style.background = "#fef2f2";
+                grammarStatus.style.color = "#991b1b";
+                grammarStatus.style.borderColor = "#fca5a5";
+            } else if (/\b(everyday)\s+(built|runs|works)\b/i.test(text)) {
+                grammarStatus.textContent = "Consider spacing: Use 'every day' for an adverb phrase indicating daily action.";
+                grammarStatus.style.background = "#fffbeb";
+                grammarStatus.style.color = "#92400e";
+                grammarStatus.style.borderColor = "#fde68a";
+            } else {
+                grammarStatus.textContent = "Looking clean! No obvious structural patterns flagged right now.";
+                grammarStatus.style.background = "#f0fdf4";
+                grammarStatus.style.color = "#166534";
+                grammarStatus.style.borderColor = "#bbf7d0";
+            }
+        }
+    </script>
 </body>
 </html>
