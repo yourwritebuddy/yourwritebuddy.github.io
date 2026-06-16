@@ -72,6 +72,7 @@
             border: 1px solid #e2e8f0;
             display: flex;
             flex-direction: column;
+            cursor: pointer; /* Force the mouse cursor to look like a pointer */
         }
         .tool-card:hover {
             transform: translateY(-5px);
@@ -80,7 +81,7 @@
         }
         .tool-card h3 {
             margin: 0 0 10px 0;
-            color: #2c3e50;
+            color: #0070f3; /* Makes the title blue so you know it's clickable */
             font-size: 20px;
         }
         .tool-card p {
@@ -106,9 +107,15 @@
         
         <div class="tools-grid">
             <!-- Word Counter Card -->
-            <a href="word-counter.html" class="tool-card">
+            <a href="./word-counter.html" class="tool-card">
                 <h3>Word Counter</h3>
                 <p>Track characters and words for essays, articles, and social media instantly as you type.</p>
+            </a>
+
+            <!-- Case Converter Card -->
+            <a href="./case-converter.html" class="tool-card">
+                <h3>Case Converter</h3>
+                <p>Quickly change text to UPPERCASE, lowercase, or Title Case at the click of a button.</p>
             </a>
 
             <!-- Reading Time Calculator Card -->
@@ -116,12 +123,6 @@
                 <h3>Reading Time Calculator</h3>
                 <p>Estimate how long your content takes to read based on average speech and reading speeds.</p>
             </a>
-
-            <!-- Case Converter Card -->
-   <a href="case-converter.html" class="tool-card">
-       <h3>Case Converter</h3>
-       <p>Quickly change text to UPPERCASE, lowercase, or Title Case at the click of a button.</p>
-   </a>
         </div>
     </div>
 
